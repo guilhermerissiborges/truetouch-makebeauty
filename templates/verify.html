@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrueTouch — Authentic Product</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      background: #0d0a14;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 16px 48px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Background glow blobs */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(224,64,200,0.18) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(168,85,247,0.14) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Logo */
+    .logo-wrap {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .logo {
+      font-size: 42px;
+      font-weight: 900;
+      background: linear-gradient(90deg, #e040c8 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1.5px;
+      line-height: 1;
+    }
+    .logo sup {
+      font-size: 20px;
+      vertical-align: super;
+    }
+    .logo-sub {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      margin-top: 5px;
+    }
+
+    /* Main card */
+    .card {
+      width: 100%;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(224,64,200,0.2);
+      box-shadow:
+        0 0 40px rgba(224,64,200,0.08),
+        0 20px 60px rgba(0,0,0,0.5);
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(20px);
+    }
+
+    /* Card hero */
+    .card-hero {
+      padding: 36px 24px 28px;
+      text-align: center;
+      position: relative;
+      background: linear-gradient(160deg, rgba(224,64,200,0.12) 0%, rgba(168,85,247,0.08) 100%);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .badge-ring {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e040c8, #a855f7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow:
+        0 0 0 12px rgba(224,64,200,0.1),
+        0 0 30px rgba(168,85,247,0.3);
+    }
+    .badge-ring svg {
+      width: 42px;
+      height: 42px;
+    }
+
+    .status-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #e040c8, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 6px;
+    }
+    .status-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    /* Product name */
+    .product-name-wrap {
+      padding: 20px 24px 0;
+      text-align: center;
+    }
+    .product-name {
+      font-size: 19px;
+      font-weight: 700;
+      color: #fff;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    /* Info rows */
+    .card-body {
+      padding: 20px 24px 24px;
+    }
+    .info-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .info-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+    .info-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      text-align: right;
+    }
+    .divider {
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      margin: 2px 0;
+    }
+
+    /* UID box */
+    .uid-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(224,64,200,0.2);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .uid-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(168,85,247,0.7);
+      margin-bottom: 5px;
+    }
+    .uid-value {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: rgba(255,255,255,0.55);
+      word-break: break-all;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 28px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .gradient-line {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, #e040c8, #a855f7);
+      border-radius: 2px;
+      margin: 0 auto;
+    }
+    .footer-dev {
+      font-size: 10px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+
+    <div class="logo-wrap">
+      <div class="logo">TrueTouch<sup>™</sup></div>
+      <div class="logo-sub">Authenticity Verification</div>
+    </div>
+
+    <div class="card">
+      <div class="card-hero">
+        <div class="badge-ring">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <div class="status-label">Verified Authentic</div>
+        <div class="status-title">Authentic Product</div>
+      </div>
+
+      <div class="product-name-wrap">
+        <div class="product-name">{{ produto }}</div>
+      </div>
+
+      <div class="card-body">
+        <div class="info-grid">
+          <div class="info-row">
+            <span class="info-label">Manufacturing Date</span>
+            <span class="info-value">{{ data_fab }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Manufacturing Time</span>
+            <span class="info-value">{{ hora_fab }}</span>
+          </div>
+          <div class="divider"></div>
+          <div class="info-row">
+            <span class="info-label">Registered At</span>
+            <span class="info-value">{{ timestamp }}</span>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Operator</span>
+            <span class="info-value">{{ operador }}</span>
+          </div>
+        </div>
+
+        <div class="uid-box">
+          <div class="uid-label">NFC Tag ID</div>
+          <div class="uid-value">{{ uid }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="gradient-line"></div>
+      <div class="footer-dev">Developed by Make Beauty Tech Team</div>
+    </div>
+
+  </div>
+</body>
+</html>

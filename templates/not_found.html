@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TrueTouch — Tag Not Recognized</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      background: #0d0a14;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 36px 16px 48px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(224,64,200,0.1) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(239,68,68,0.1) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .logo-wrap {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    .logo {
+      font-size: 42px;
+      font-weight: 900;
+      background: linear-gradient(90deg, #e040c8 0%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1.5px;
+      line-height: 1;
+    }
+    .logo sup {
+      font-size: 20px;
+      vertical-align: super;
+    }
+    .logo-sub {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      margin-top: 5px;
+    }
+
+    .card {
+      width: 100%;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid rgba(239,68,68,0.2);
+      box-shadow:
+        0 0 40px rgba(239,68,68,0.06),
+        0 20px 60px rgba(0,0,0,0.5);
+      background: rgba(255,255,255,0.04);
+      backdrop-filter: blur(20px);
+    }
+
+    .card-hero {
+      padding: 36px 24px 28px;
+      text-align: center;
+      background: linear-gradient(160deg, rgba(239,68,68,0.1) 0%, rgba(168,85,247,0.06) 100%);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .badge-ring {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow:
+        0 0 0 12px rgba(239,68,68,0.1),
+        0 0 30px rgba(239,68,68,0.25);
+    }
+    .badge-ring svg {
+      width: 42px;
+      height: 42px;
+    }
+
+    .status-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #ef4444;
+      margin-bottom: 6px;
+    }
+    .status-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .card-body {
+      padding: 28px 24px;
+      text-align: center;
+    }
+
+    .warning-text {
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .warning-text strong {
+      color: #ef4444;
+    }
+
+    .action-box {
+      background: rgba(239,68,68,0.07);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 12px;
+      padding: 16px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+    }
+
+    .uid-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(239,68,68,0.15);
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 16px;
+      text-align: center;
+    }
+    .uid-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(239,68,68,0.6);
+      margin-bottom: 5px;
+    }
+    .uid-value {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: rgba(255,255,255,0.45);
+      word-break: break-all;
+    }
+
+    .footer {
+      margin-top: 28px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .gradient-line {
+      width: 48px;
+      height: 2px;
+      background: linear-gradient(90deg, #e040c8, #a855f7);
+      border-radius: 2px;
+    }
+    .footer-dev {
+      font-size: 10px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+
+    <div class="logo-wrap">
+      <div class="logo">TrueTouch<sup>™</sup></div>
+      <div class="logo-sub">Authenticity Verification</div>
+    </div>
+
+    <div class="card">
+      <div class="card-hero">
+        <div class="badge-ring">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </div>
+        <div class="status-label">Verification Failed</div>
+        <div class="status-title">Tag Not Recognized</div>
+      </div>
+
+      <div class="card-body">
+        <p class="warning-text">
+          This tag is <strong>not registered</strong> in the Make Beauty system.<br />
+          This product may be <strong>counterfeit</strong>.
+        </p>
+        <div class="action-box">
+          Do not use this product. Please contact Make Beauty to verify authenticity and report the incident.
+        </div>
+
+        {% if uid %}
+        <div class="uid-box">
+          <div class="uid-label">Tag ID Read</div>
+          <div class="uid-value">{{ uid }}</div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="gradient-line"></div>
+      <div class="footer-dev">Developed by Make Beauty Tech Team</div>
+    </div>
+
+  </div>
+</body>
+</html>
